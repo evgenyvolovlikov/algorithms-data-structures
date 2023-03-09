@@ -24,9 +24,9 @@ Output: [0,1]
 ```
 ### Solution:
 ```
-const arrayOfNums = [2,7,11,15];
-const arrayOfNumsV2 = [3,2,4];
-const arrayOfNumsV3 = [3,3];
+const arrayOfNums = [2,7,11,15]
+const arrayOfNumsV2 = [3,2,4]
+const arrayOfNumsV3 = [3,3]
 
 const twoSum = (nums, target) => {
   for(let i = 0; i < nums.length; i++){
