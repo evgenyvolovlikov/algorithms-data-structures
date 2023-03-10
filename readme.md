@@ -142,7 +142,7 @@ sum(1, '2', '3')
 sum(1, 2, '3')
 ```
 
-## 3 Move Zeroes (Easy)
+## 4 Move Zeroes (Easy)
 Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
 ### Example 1:
@@ -155,6 +155,7 @@ Input: nums = [0]
 Output: [0]
 
 ### Solution 1
+```
 const moveZeroes = (input) => {
   const array = [];
   const arrayOfZeroes = [];
@@ -169,8 +170,10 @@ const moveZeroes = (input) => {
 }
 
 moveZeroes([0,1,0,3,12])
+```
 
 ### Solution 2
+```
 const moveZeroes = (input) => {
   const zeroes = [];
   input = input.filter((val) => val !== 0 ? true : zeroes.push(val) && false);
@@ -178,13 +181,17 @@ const moveZeroes = (input) => {
 }
 
 moveZeroes([0,1,0,3,12])
+```
 
 ** Additional: Note that you must do this in-place without making a copy of the array.
 ### Solution 3
+```
 const moveZeroes = (input) => input.sort((a, b) => !a - !b);
 moveZeroes([0,1,0,3,12])
+```
 
 ### Solution 4
+```
 const moveZeroes = (input) => {
   let zeroCount = []
 
@@ -202,3 +209,105 @@ const moveZeroes = (input) => {
 }
 
 moveZeroes([0,1,0,3,12])
+```
+## 5 Contains Duplicates
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+### Example 1:
+Input: nums = [1,2,3,1]
+Output: true
+### Example 2:
+Input: nums = [1,2,3,4]
+Output: false
+### Example 3:
+Input: nums = [1,1,1,3,3,4,3,2,4,2]
+Output: true
+
+### Solution 1
+```
+const containsDuplicate = function(input){
+  for(let i = 0; i < input.length; i++){
+    const value = input[i]
+
+    for(let j = i + 1; j < input.length; j++){
+      if(value === input[j]) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+containsDuplicate([1,2,3,1])
+containsDuplicate([1,2,3,4])
+containsDuplicate([1,1,1,3,3,4,3,2,4,2])
+```
+### Solution 2
+```
+const containsDuplicate = (input) => {
+  const uniqueMap = new Set(input)
+
+  if(uniqueMap.size !== input.length) {
+    return true
+  } else {
+    return false
+  }
+} 
+
+containsDuplicate([1,2,3,1])
+containsDuplicate([1,2,3,4])
+containsDuplicate([1,1,1,3,3,4,3,2,4,2])
+```
+### Solution 3
+```
+const containsDuplicate = input => {
+  let objMap = {}
+    
+  for(let i = 0; i < input.length; i++) {
+    const currentMapValue = input[i]
+    if(!objMap[currentMapValue]) {
+      objMap[currentMapValue] = true
+    } else if (objMap[currentMapValue]) {
+      return true
+    }
+  }
+  return false
+}
+
+containsDuplicate([1,2,3,1])
+containsDuplicate([1,2,3,4])
+containsDuplicate([1,1,1,3,3,4,3,2,4,2])
+```
+## 6 Palindrom (Easy)
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+### Example 1:
+
+Input: s = "A man, a plan, a canal: Panama"
+Output: true
+Explanation: "amanaplanacanalpanama" is a palindrome.
+### Example 2:
+
+Input: s = "race a car"
+Output: false
+Explanation: "raceacar" is not a palindrome.
+### Example 3:
+
+Input: s = " "
+Output: true
+Explanation: s is an empty string "" after removing non-alphanumeric characters.
+Since an empty string reads the same forward and backward, it is a palindrome
+
+<!-- TODO: добавить несколько решений задачи -->
+### Solution 1
+```
+const isPalindrome = str => {
+  const rmvSymStr = str.toLowerCase().replace(/[^A-Za-z0-9]/g, "")
+  const reversedStr = rmvSymStr.split('').reverse().join('')
+
+  return rmvSymStr === reversedStr
+}
+
+isPalindrome('A man, a plan, a canal: Panama')
+```
