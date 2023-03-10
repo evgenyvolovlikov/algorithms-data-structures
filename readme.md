@@ -141,3 +141,64 @@ const sum = (...args) => args.reduce((acc, val) => acc + val, 0)
 sum(1, '2', '3')
 sum(1, 2, '3')
 ```
+
+## 3 Move Zeroes (Easy)
+Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+### Example 1:
+
+Input: nums = [0,1,0,3,12]
+Output: [1,3,12,0,0]
+Example 2:
+
+Input: nums = [0]
+Output: [0]
+
+### Solution 1
+const moveZeroes = (input) => {
+  const array = [];
+  const arrayOfZeroes = [];
+  for(value of input) {
+    if(value === 0) {
+      arrayOfZeroes.push(value)
+    } else {
+      array.push(value)
+    }
+  }
+  return [...array, ...arrayOfZeroes]
+}
+
+moveZeroes([0,1,0,3,12])
+
+### Solution 2
+const moveZeroes = (input) => {
+  const zeroes = [];
+  input = input.filter((val) => val !== 0 ? true : zeroes.push(val) && false);
+  return input.concat(zeroes);
+}
+
+moveZeroes([0,1,0,3,12])
+
+** Additional: Note that you must do this in-place without making a copy of the array.
+### Solution 3
+const moveZeroes = (input) => input.sort((a, b) => !a - !b);
+moveZeroes([0,1,0,3,12])
+
+### Solution 4
+const moveZeroes = (input) => {
+  let zeroCount = []
+
+  for(let i = 0; i < input.length; i++){
+    if(input[i] !== 0){
+      input[zeroCount++] = input[i]
+    }
+  }
+
+  for(let i = zeroCount; i < input.length; i++){
+    input[i] = 0
+  }
+
+  return input
+}
+
+moveZeroes([0,1,0,3,12])
