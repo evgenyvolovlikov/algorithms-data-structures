@@ -128,13 +128,15 @@ const anagram = (input) => {
 ## 3 Counter (Easy)
 First write a function that adds up the arguments
 ### Example 1:
+```
 Input: 1,'2',3
 Output: 123
-
+```
 ### Example 2:
+```
 Input: 1,2,'3'
 Output: 33
-
+```
 ### Solution 1
 ```
 const sum = (...args) => args.reduce((acc, val) => acc + val, 0) 
@@ -146,14 +148,15 @@ sum(1, 2, '3')
 Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
 ### Example 1:
-
+```
 Input: nums = [0,1,0,3,12]
 Output: [1,3,12,0,0]
-Example 2:
-
+```
+### Example 2:
+```
 Input: nums = [0]
 Output: [0]
-
+```
 ### Solution 1
 ```
 const moveZeroes = (input) => {
@@ -213,11 +216,15 @@ moveZeroes([0,1,0,3,12])
 ## 5 Contains Duplicates
 Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 ### Example 1:
+```
 Input: nums = [1,2,3,1]
 Output: true
+```
 ### Example 2:
+```
 Input: nums = [1,2,3,4]
 Output: false
+```
 ### Example 3:
 Input: nums = [1,1,1,3,3,4,3,2,4,2]
 Output: true
@@ -283,31 +290,86 @@ A phrase is a palindrome if, after converting all uppercase letters into lowerca
 Given a string s, return true if it is a palindrome, or false otherwise.
 
 ### Example 1:
-
+```
 Input: s = "A man, a plan, a canal: Panama"
 Output: true
 Explanation: "amanaplanacanalpanama" is a palindrome.
+```
 ### Example 2:
-
+```
 Input: s = "race a car"
 Output: false
 Explanation: "raceacar" is not a palindrome.
+```
 ### Example 3:
-
+```
 Input: s = " "
 Output: true
 Explanation: s is an empty string "" after removing non-alphanumeric characters.
 Since an empty string reads the same forward and backward, it is a palindrome
+```
 
-<!-- TODO: добавить несколько решений задачи -->
 ### Solution 1
 ```
 const isPalindrome = str => {
-  const rmvSymStr = str.toLowerCase().replace(/[^A-Za-z0-9]/g, "")
+  const rmvSymStr = str.toLowerCase().replace(/[^A-Za-z0-9]/g, '')
   const reversedStr = rmvSymStr.split('').reverse().join('')
 
   return rmvSymStr === reversedStr
 }
 
 isPalindrome('A man, a plan, a canal: Panama')
+```
+### Solution 1
+```
+const isPalindrome = str => {
+  str = str.toLowerCase().replace(/[^A-Za-z0-9]/g,'')
+
+  let revertedStr = ''
+
+  for(let i = str.length - 1; i >= 0; i--){
+    revertedStr += str[i]
+  }
+
+  return str === revertedStr
+}
+```
+
+### Solution 3
+```
+const isPalindrome = str => {
+  str = str.toLowerCase().replace(/[^A-Za-z0-9]/g, "")
+
+  let left = 0
+  let right = str.length - 1
+
+  while(left < right) {
+    if(str[left] !== str[right]) {
+      return false
+    }
+
+    left++
+    right--
+  }
+
+  return true
+}
+
+isPalindrome('A man, a plan, a canal: Panama')
+```
+
+## 7 Reverse String (Easy)
+Write a function that reverses a string. The input string is given as an array of characters s.
+
+You must do this by modifying the input array in-place with O(1) extra memory.
+
+### Example 1:
+```
+Input: s = ["h","e","l","l","o"]
+Output: ["o","l","l","e","h"]
+```
+### Example 2:
+```
+Input: s = ["H","a","n","n","a","h"]
+Output: ["h","a","n","n","a","H"]
 ```
