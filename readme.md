@@ -68,7 +68,6 @@ twoSum(arrayOfNums, 9)
 twoSum(arrayOfNumsV2, 6)
 twoSum(arrayOfNumsV3, 6)
 ```
-
 ## 2 Anagram (Easy)
 Write a function that event return true or false if it is anagram
 ### Example:
@@ -107,7 +106,6 @@ Output: [
   ['javascript']
   ['java']
 ]
-
 ### Solution 1
 ```
 const anagram = (input) => {
@@ -124,7 +122,6 @@ const anagram = (input) => {
   return Object.values(objMap)
 }
 ```
-
 ## 3 Counter (Easy)
 First write a function that adds up the arguments
 ### Example 1:
@@ -143,7 +140,6 @@ const sum = (...args) => args.reduce((acc, val) => acc + val, 0)
 sum(1, '2', '3')
 sum(1, 2, '3')
 ```
-
 ## 4 Move Zeroes (Easy)
 Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
@@ -174,7 +170,6 @@ const moveZeroes = (input) => {
 
 moveZeroes([0,1,0,3,12])
 ```
-
 ### Solution 2
 ```
 const moveZeroes = (input) => {
@@ -192,7 +187,6 @@ moveZeroes([0,1,0,3,12])
 const moveZeroes = (input) => input.sort((a, b) => !a - !b);
 moveZeroes([0,1,0,3,12])
 ```
-
 ### Solution 4
 ```
 const moveZeroes = (input) => {
@@ -228,7 +222,6 @@ Output: false
 ### Example 3:
 Input: nums = [1,1,1,3,3,4,3,2,4,2]
 Output: true
-
 ### Solution 1
 ```
 const containsDuplicate = function(input){
@@ -308,7 +301,6 @@ Output: true
 Explanation: s is an empty string "" after removing non-alphanumeric characters.
 Since an empty string reads the same forward and backward, it is a palindrome
 ```
-
 ### Solution 1
 ```
 const isPalindrome = str => {
@@ -334,7 +326,6 @@ const isPalindrome = str => {
   return str === revertedStr
 }
 ```
-
 ### Solution 3
 ```
 const isPalindrome = str => {
@@ -357,12 +348,8 @@ const isPalindrome = str => {
 
 isPalindrome('A man, a plan, a canal: Panama')
 ```
-
 ## 7 Reverse String (Easy)
 Write a function that reverses a string. The input string is given as an array of characters s.
-
-You must do this by modifying the input array in-place with O(1) extra memory.
-
 ### Example 1:
 ```
 Input: s = ["h","e","l","l","o"]
@@ -372,4 +359,176 @@ Output: ["o","l","l","e","h"]
 ```
 Input: s = ["H","a","n","n","a","h"]
 Output: ["h","a","n","n","a","H"]
+```
+### Solution 1
+```
+const reverseString = str => str.split('').reverse().join('')
+```
+### Solution 2
+```
+const reverseString = str => {
+  const strArr = []
+
+  for(let i = str.length - 1; i>= 0; i--){
+    strArr.push(str[i])
+  }
+
+  return strArr.join('')
+}
+```
+
+TODO: add solution
+Extra: You must do this by modifying the input array in-place with O(1) extra memory.
+
+## 8 Valid Parentheses (Easy)
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+
+### Example 1:
+```
+Input: s = "()"
+Output: true
+```
+### Example 2:
+```
+Input: s = "()[]{}"
+Output: true
+```
+### Example 3:
+```
+Input: s = "(]"
+Output: false
+```
+### Example 4:
+```
+Input: s = "{()[]}"
+Output: true
+```
+### Solution 1
+```
+const parens = {
+  "(" : ")",
+  "[" : "]",
+  "{": "}"
+}
+
+const isValid = s => {
+  const stack = []
+
+  for(let i = 0; i < s.length; i++){
+    if (parens[s[i]]) {
+      stack.push(s[i])
+    } else {
+      const lastArrValue = stack.pop()
+      if(parens[lastArrValue] !== s[i]) return false 
+    }
+  }
+
+  return stack.length === 0
+}
+
+isValid("()[]{}")
+```
+## 9  Intersection of Two Arrays (Easy)
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
+### Example 1:
+```
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
+```
+### Example 2:
+```
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+Explanation: [4,9] is also accepted.
+```
+### Solution 1
+```
+const intersection = (nums1, nums2) => { 
+  const stack = [] 
+  for(let i = 0; i < nums1.length; i++) {
+    for(let j = 0; j < nums2.length; j++) {
+      if(nums1[i] === nums2[j]) {
+        stack.push(nums1[i])
+      }
+    }
+  }
+
+  const uniqueSet = new Set(stack)
+  const array = Array.from(uniqueSet)
+
+  return array;
+}
+
+intersection([4,9,5], [9,4,9,8,4])
+```
+### Solution 2
+```
+const intersection = (nums1, nums2) => {
+  const objMap = {}
+  const uniqueNum1Set = new Set(nums1)
+  const uniqueArr1 = Array.from(uniqueNum1Set)
+
+  uniqueArr1.forEach(i => {
+    if(!objMap[i]) {
+      objMap[i] = 1
+    } else {
+      objMap[i]++
+    }
+  })
+
+  const stack = []
+
+  nums2.forEach(j => {
+    if(objMap[j] && objMap[j] > 0) {
+      stack.push(j)
+      objMap[j]--
+    }
+  })
+
+  return stack
+}
+
+intersection([4,9,5], [9,4,9,8,4])
+```
+## 10 Merge Sorted Array
+Merge two array in ascending order
+### Example 1:
+```
+Input: mergeSortedeArray([0, 3, 4, 30], [4, 6, 31]);
+Output [0, 3, 4, 4, 6, 30, 31];
+```
+### Solution 1
+```
+const mergeSortedArray = (nums1, nums2) => [...nums1, ...nums2].sort((a, b) => a - b)
+```
+### Solution 2
+```
+const mergeSortedArray = (arrOne, arrTwo) => {
+  const stack = []
+  let arr1 = arrOne[0]
+  let arr2 = arrTwo[0]
+
+  let i = 1
+  let j = 1
+
+  while(arr1 || arr2) {
+    if(arr2 === undefined || arr1 < arr2) {
+      stack.push(arr1)
+      arr1 = arrOne[i]
+      i++
+    } else {
+      stack.push(arr2)
+      arr2 = arrTwo[j]
+      j++
+    }
+  }
+
+  return stack
+}
 ```
