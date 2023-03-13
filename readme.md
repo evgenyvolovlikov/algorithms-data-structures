@@ -22,7 +22,7 @@ Output: [1,2]
 Input: nums = [3,3], target = 6
 Output: [0,1]
 ```
-### Solution:
+### Solution 1:
 ```
 const arrayOfNums = [2,7,11,15]
 const arrayOfNumsV2 = [3,2,4]
@@ -68,13 +68,57 @@ twoSum(arrayOfNums, 9)
 twoSum(arrayOfNumsV2, 6)
 twoSum(arrayOfNumsV3, 6)
 ```
+## Solution 3
+```
+const arrayOfNums = [2,7,11,15]; target = 9
+const arrayOfNumsV2 = [3,2,4]; target = 6
+const arrayOfNumsV3 = [3,3]; target = 6
+
+const twoSum = (nums, target) => {
+  const length = nums.length;
+  for(let i = 0; i < length - 1; i++) {
+    for(let j = 1; j < length; j++){
+      if(nums[i] + nums[j] === target) {
+        return [i, j]
+      }
+    }
+  }
+  return null
+}
+
+twoSum(arrayOfNums, 9)
+twoSum(arrayOfNumsV2, 6)
+twoSum(arrayOfNumsV3, 6)
+```
+## Solution 4
+```
+const arrayOfNums = [2,7,11,15]; target = 9
+const arrayOfNumsV2 = [3,2,4]; target = 6
+const arrayOfNumsV3 = [3,3]; target = 6
+
+const twoSum = (nums, target) => {
+  const objSet = new Set()
+
+  for(let i = 0; i < nums.length; i++){
+    if(objSet.has(nums[i])){
+      return true
+    } else {
+      objSet.add(target - nums[i])
+    }
+  }
+  return false
+}
+
+twoSum(arrayOfNums, 9)
+twoSum(arrayOfNumsV2, 6)
+twoSum(arrayOfNumsV3, 6)
+```
 ## 2 Anagram (Easy)
 Write a function that event return true or false if it is anagram
 ### Example:
 ```
 Input: "Я в мире — сирота.", "Я в мире — сирота."
 Output: true
-Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 ```
 ## Solution 1
 ```
@@ -86,7 +130,7 @@ anagram("Я в мире — сирота.", "Я в мире — сирота.")
 ```
 ## 2.1 Anagram (Easy)
 Create a function that makes up an array of strings and get an array as an output, as in the example below.
-
+```
 Input: const input = [
  "БОДРЯЧОК",
  "ДОБРЯЧОК",
@@ -98,7 +142,8 @@ Input: const input = [
  "javascript",
  "java",
 ]
-
+```
+```
 Output: [
   ['БОДРЯЧОК', 'ДОБРЯЧОК']
   ['КАНИСТРА', 'СТАРИКАН', 'СТАРИНКА']
@@ -106,6 +151,7 @@ Output: [
   ['javascript']
   ['java']
 ]
+```
 ### Solution 1
 ```
 const anagram = (input) => {
@@ -531,4 +577,61 @@ const mergeSortedArray = (arrOne, arrTwo) => {
 
   return stack
 }
+```
+## 11 Contains Common Items (Google)
+Given 2 arrays, create a function that let's a user know 
+true/false)whether these two arrays contain any common items
+### Example 1:
+```
+Input: nums1 = ['a', 'b', 'c', 'x'], nums2 = ['z', 'y', 'i'];
+Output: false
+```
+### Example 2:
+```
+Input: nums1 = ['a', 'b', 'c', 'x'], nums2 = ['z', 'y', 'x'];
+Output: true
+```
+
+### Solution 1
+```
+const containsCommonItem = (n1, n2) => {
+  for(let i = 0; i < n1.length; i++){
+    for(let j = 0; j < n2.length; j++){
+      if(n1[i] === n2[j]) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+containsCommonItem(['a', 'b', 'c', 'x'], ['z', 'y', 'i'])
+```
+### Solution 2
+```
+const containsCommonItem = (n1, n2) => {
+  const objMap = {}
+
+  for(let i = 0; i <n1.length; i++){
+    if(!objMap[n1[i]]) {
+      objMap[n1[i]] = true
+    }
+  }
+
+  for(let j = 0; j <n2.length; j++){
+    if(objMap[n2[j]]) {
+      return true
+    }
+  }
+
+  return false
+}
+
+containsCommonItem(['a', 'b', 'c', 'x'], ['z', 'y', 'i'])
+```
+
+### Solution 3
+```
+const containsCommonItem = (n1, n2) => n1.some((value) => n2.includes(value))
+containsCommonItem(['a', 'b', 'c', 'x'], ['z', 'y', 'i'])
 ```
